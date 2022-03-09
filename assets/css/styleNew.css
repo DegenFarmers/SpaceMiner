@@ -28,7 +28,7 @@
 
 
  #logo-space{
-    animation-duration: 10s;
+ //   animation-duration: 10s;
     animation-iteration-count: infinite;
     animation-name: clockwiseSpin;
     animation-timing-function: linear;
