@@ -21,9 +21,9 @@ var cutoffStep=0;
 var withdrawCooldown=0;
 
 var contract;
-const minerAddress = '0xdb2098c0ab7c27f587a7ffdb0c81ea5c0f1c5d5f'
+const minerAddress = ''
 
-const tokenAddress = '0xe9e7cea3dedca5984780bafc599bd69add087d56' // mainnet busd
+const tokenAddress = '' // mainnet busd
 //'0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7' //testnet busd
 
 var tokenContract;
