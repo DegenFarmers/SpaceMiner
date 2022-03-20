@@ -191,11 +191,11 @@ function refreshData() {
         console.log('WALLET_DEPOSIT_LIMIT', err);
     });
 	
-	contract.methods.MIN_INVEST_LIMIT().call().then(busd => {
+	contract.methods.SET_INVEST_MIN().call().then(busd => {
         minDeposit = busd;
         $("#min-deposit").html(`${readableBUSD(busd, 2, 1e9)} SPACE`)
     }).catch((err) => {
-        console.log('MIN_INVEST_LIMIT', err);
+        console.log('SET_INVEST_MIN', err);
     });
 
     contract.methods.COMPOUND_STEP().call().then(step => {
