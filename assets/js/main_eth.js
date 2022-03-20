@@ -34,58 +34,9 @@ var canSell = true;
 const tokenAbi = [
    {
       "inputs":[
-         {
-            "internalType":"string",
-            "name":"name_",
-            "type":"string"
-         },
-         {
-            "internalType":"string",
-            "name":"symbol_",
-            "type":"string"
-         },
-         {
-            "internalType":"uint256",
-            "name":"totalSupply_",
-            "type":"uint256"
-         },
-         {
-            "internalType":"address",
-            "name":"router_",
-            "type":"address"
-         },
-         {
-            "internalType":"address",
-            "name":"charityAddress_",
-            "type":"address"
-         },
-         {
-            "internalType":"uint16",
-            "name":"taxFeeBps_",
-            "type":"uint16"
-         },
-         {
-            "internalType":"uint16",
-            "name":"liquidityFeeBps_",
-            "type":"uint16"
-         },
-         {
-            "internalType":"uint16",
-            "name":"charityFeeBps_",
-            "type":"uint16"
-         },
-         {
-            "internalType":"address",
-            "name":"serviceFeeReceiver_",
-            "type":"address"
-         },
-         {
-            "internalType":"uint256",
-            "name":"serviceFee_",
-            "type":"uint256"
-         }
+         
       ],
-      "stateMutability":"payable",
+      "stateMutability":"nonpayable",
       "type":"constructor"
    },
    {
@@ -117,13 +68,13 @@ const tokenAbi = [
       "anonymous":false,
       "inputs":[
          {
-            "indexed":false,
-            "internalType":"uint256",
-            "name":"minTokensBeforeSwap",
-            "type":"uint256"
+            "indexed":true,
+            "internalType":"address",
+            "name":"account",
+            "type":"address"
          }
       ],
-      "name":"MinTokensBeforeSwapUpdated",
+      "name":"MinterAdded",
       "type":"event"
    },
    {
@@ -132,86 +83,11 @@ const tokenAbi = [
          {
             "indexed":true,
             "internalType":"address",
-            "name":"previousOwner",
-            "type":"address"
-         },
-         {
-            "indexed":true,
-            "internalType":"address",
-            "name":"newOwner",
+            "name":"account",
             "type":"address"
          }
       ],
-      "name":"OwnershipTransferred",
-      "type":"event"
-   },
-   {
-      "anonymous":false,
-      "inputs":[
-         {
-            "indexed":false,
-            "internalType":"uint256",
-            "name":"tokensSwapped",
-            "type":"uint256"
-         },
-         {
-            "indexed":false,
-            "internalType":"uint256",
-            "name":"ethReceived",
-            "type":"uint256"
-         },
-         {
-            "indexed":false,
-            "internalType":"uint256",
-            "name":"tokensIntoLiqudity",
-            "type":"uint256"
-         }
-      ],
-      "name":"SwapAndLiquify",
-      "type":"event"
-   },
-   {
-      "anonymous":false,
-      "inputs":[
-         {
-            "indexed":false,
-            "internalType":"bool",
-            "name":"enabled",
-            "type":"bool"
-         }
-      ],
-      "name":"SwapAndLiquifyEnabledUpdated",
-      "type":"event"
-   },
-   {
-      "anonymous":false,
-      "inputs":[
-         {
-            "indexed":true,
-            "internalType":"address",
-            "name":"owner",
-            "type":"address"
-         },
-         {
-            "indexed":true,
-            "internalType":"address",
-            "name":"token",
-            "type":"address"
-         },
-         {
-            "indexed":false,
-            "internalType":"enum TokenType",
-            "name":"tokenType",
-            "type":"uint8"
-         },
-         {
-            "indexed":false,
-            "internalType":"uint256",
-            "name":"version",
-            "type":"uint256"
-         }
-      ],
-      "name":"TokenCreated",
+      "name":"MinterRemoved",
       "type":"event"
    },
    {
@@ -243,12 +119,12 @@ const tokenAbi = [
       "inputs":[
          
       ],
-      "name":"VERSION",
+      "name":"DOMAIN_SEPARATOR",
       "outputs":[
          {
-            "internalType":"uint256",
+            "internalType":"bytes32",
             "name":"",
-            "type":"uint256"
+            "type":"bytes32"
          }
       ],
       "stateMutability":"view",
@@ -258,60 +134,50 @@ const tokenAbi = [
       "inputs":[
          
       ],
-      "name":"_charityAddress",
+      "name":"PERMIT_TYPEHASH",
       "outputs":[
          {
-            "internalType":"address",
+            "internalType":"bytes32",
             "name":"",
+            "type":"bytes32"
+         }
+      ],
+      "stateMutability":"view",
+      "type":"function"
+   },
+   {
+      "inputs":[
+         {
+            "internalType":"address",
+            "name":"account_",
+            "type":"address"
+         },
+         {
+            "internalType":"uint256",
+            "name":"amount_",
+            "type":"uint256"
+         }
+      ],
+      "name":"_burnFrom",
+      "outputs":[
+         
+      ],
+      "stateMutability":"nonpayable",
+      "type":"function"
+   },
+   {
+      "inputs":[
+         {
+            "internalType":"address",
+            "name":"account",
             "type":"address"
          }
       ],
-      "stateMutability":"view",
-      "type":"function"
-   },
-   {
-      "inputs":[
+      "name":"addMinter",
+      "outputs":[
          
       ],
-      "name":"_charityFee",
-      "outputs":[
-         {
-            "internalType":"uint256",
-            "name":"",
-            "type":"uint256"
-         }
-      ],
-      "stateMutability":"view",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         
-      ],
-      "name":"_liquidityFee",
-      "outputs":[
-         {
-            "internalType":"uint256",
-            "name":"",
-            "type":"uint256"
-         }
-      ],
-      "stateMutability":"view",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         
-      ],
-      "name":"_taxFee",
-      "outputs":[
-         {
-            "internalType":"uint256",
-            "name":"",
-            "type":"uint256"
-         }
-      ],
-      "stateMutability":"view",
+      "stateMutability":"nonpayable",
       "type":"function"
    },
    {
@@ -383,6 +249,41 @@ const tokenAbi = [
    },
    {
       "inputs":[
+         {
+            "internalType":"uint256",
+            "name":"amount",
+            "type":"uint256"
+         }
+      ],
+      "name":"burn",
+      "outputs":[
+         
+      ],
+      "stateMutability":"nonpayable",
+      "type":"function"
+   },
+   {
+      "inputs":[
+         {
+            "internalType":"address",
+            "name":"account_",
+            "type":"address"
+         },
+         {
+            "internalType":"uint256",
+            "name":"amount_",
+            "type":"uint256"
+         }
+      ],
+      "name":"burnFrom",
+      "outputs":[
+         
+      ],
+      "stateMutability":"nonpayable",
+      "type":"function"
+   },
+   {
+      "inputs":[
          
       ],
       "name":"decimals",
@@ -423,81 +324,6 @@ const tokenAbi = [
    {
       "inputs":[
          {
-            "internalType":"uint256",
-            "name":"tAmount",
-            "type":"uint256"
-         }
-      ],
-      "name":"deliver",
-      "outputs":[
-         
-      ],
-      "stateMutability":"nonpayable",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         {
-            "internalType":"address",
-            "name":"account",
-            "type":"address"
-         }
-      ],
-      "name":"excludeFromFee",
-      "outputs":[
-         
-      ],
-      "stateMutability":"nonpayable",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         {
-            "internalType":"address",
-            "name":"account",
-            "type":"address"
-         }
-      ],
-      "name":"excludeFromReward",
-      "outputs":[
-         
-      ],
-      "stateMutability":"nonpayable",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         {
-            "internalType":"address",
-            "name":"account",
-            "type":"address"
-         }
-      ],
-      "name":"includeInFee",
-      "outputs":[
-         
-      ],
-      "stateMutability":"nonpayable",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         {
-            "internalType":"address",
-            "name":"account",
-            "type":"address"
-         }
-      ],
-      "name":"includeInReward",
-      "outputs":[
-         
-      ],
-      "stateMutability":"nonpayable",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         {
             "internalType":"address",
             "name":"spender",
             "type":"address"
@@ -527,7 +353,7 @@ const tokenAbi = [
             "type":"address"
          }
       ],
-      "name":"isExcludedFromFee",
+      "name":"isMinter",
       "outputs":[
          {
             "internalType":"bool",
@@ -542,19 +368,20 @@ const tokenAbi = [
       "inputs":[
          {
             "internalType":"address",
-            "name":"account",
+            "name":"account_",
             "type":"address"
-         }
-      ],
-      "name":"isExcludedFromReward",
-      "outputs":[
+         },
          {
-            "internalType":"bool",
-            "name":"",
-            "type":"bool"
+            "internalType":"uint256",
+            "name":"amount_",
+            "type":"uint256"
          }
       ],
-      "stateMutability":"view",
+      "name":"mint",
+      "outputs":[
+         
+      ],
+      "stateMutability":"nonpayable",
       "type":"function"
    },
    {
@@ -574,48 +401,62 @@ const tokenAbi = [
    },
    {
       "inputs":[
-         
-      ],
-      "name":"owner",
-      "outputs":[
          {
             "internalType":"address",
-            "name":"",
+            "name":"owner",
             "type":"address"
          }
       ],
+      "name":"nonces",
+      "outputs":[
+         {
+            "internalType":"uint256",
+            "name":"",
+            "type":"uint256"
+         }
+      ],
       "stateMutability":"view",
       "type":"function"
    },
    {
       "inputs":[
          {
+            "internalType":"address",
+            "name":"owner",
+            "type":"address"
+         },
+         {
+            "internalType":"address",
+            "name":"spender",
+            "type":"address"
+         },
+         {
             "internalType":"uint256",
-            "name":"tAmount",
+            "name":"amount",
             "type":"uint256"
          },
          {
-            "internalType":"bool",
-            "name":"deductTransferFee",
-            "type":"bool"
-         }
-      ],
-      "name":"reflectionFromToken",
-      "outputs":[
-         {
             "internalType":"uint256",
-            "name":"",
+            "name":"deadline",
             "type":"uint256"
+         },
+         {
+            "internalType":"uint8",
+            "name":"v",
+            "type":"uint8"
+         },
+         {
+            "internalType":"bytes32",
+            "name":"r",
+            "type":"bytes32"
+         },
+         {
+            "internalType":"bytes32",
+            "name":"s",
+            "type":"bytes32"
          }
       ],
-      "stateMutability":"view",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         
-      ],
-      "name":"renounceOwnership",
+      "name":"permit",
       "outputs":[
          
       ],
@@ -625,42 +466,12 @@ const tokenAbi = [
    {
       "inputs":[
          {
-            "internalType":"uint256",
-            "name":"liquidityFeeBps",
-            "type":"uint256"
+            "internalType":"address",
+            "name":"account",
+            "type":"address"
          }
       ],
-      "name":"setLiquidityFeePercent",
-      "outputs":[
-         
-      ],
-      "stateMutability":"nonpayable",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         {
-            "internalType":"bool",
-            "name":"_enabled",
-            "type":"bool"
-         }
-      ],
-      "name":"setSwapAndLiquifyEnabled",
-      "outputs":[
-         
-      ],
-      "stateMutability":"nonpayable",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         {
-            "internalType":"uint256",
-            "name":"taxFeeBps",
-            "type":"uint256"
-         }
-      ],
-      "name":"setTaxFeePercent",
+      "name":"removeMinter",
       "outputs":[
          
       ],
@@ -671,15 +482,11 @@ const tokenAbi = [
       "inputs":[
          
       ],
-      "name":"swapAndLiquifyEnabled",
+      "name":"renounceMinter",
       "outputs":[
-         {
-            "internalType":"bool",
-            "name":"",
-            "type":"bool"
-         }
+         
       ],
-      "stateMutability":"view",
+      "stateMutability":"nonpayable",
       "type":"function"
    },
    {
@@ -692,40 +499,6 @@ const tokenAbi = [
             "internalType":"string",
             "name":"",
             "type":"string"
-         }
-      ],
-      "stateMutability":"view",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         {
-            "internalType":"uint256",
-            "name":"rAmount",
-            "type":"uint256"
-         }
-      ],
-      "name":"tokenFromReflection",
-      "outputs":[
-         {
-            "internalType":"uint256",
-            "name":"",
-            "type":"uint256"
-         }
-      ],
-      "stateMutability":"view",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         
-      ],
-      "name":"totalFees",
-      "outputs":[
-         {
-            "internalType":"uint256",
-            "name":"",
-            "type":"uint256"
          }
       ],
       "stateMutability":"view",
@@ -798,55 +571,6 @@ const tokenAbi = [
       ],
       "stateMutability":"nonpayable",
       "type":"function"
-   },
-   {
-      "inputs":[
-         {
-            "internalType":"address",
-            "name":"newOwner",
-            "type":"address"
-         }
-      ],
-      "name":"transferOwnership",
-      "outputs":[
-         
-      ],
-      "stateMutability":"nonpayable",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         
-      ],
-      "name":"uniswapV2Pair",
-      "outputs":[
-         {
-            "internalType":"address",
-            "name":"",
-            "type":"address"
-         }
-      ],
-      "stateMutability":"view",
-      "type":"function"
-   },
-   {
-      "inputs":[
-         
-      ],
-      "name":"uniswapV2Router",
-      "outputs":[
-         {
-            "internalType":"contract IUniswapV2Router02",
-            "name":"",
-            "type":"address"
-         }
-      ],
-      "stateMutability":"view",
-      "type":"function"
-   },
-   {
-      "stateMutability":"payable",
-      "type":"receive"
    }
 ]
 const minerAbi = [
