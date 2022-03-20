@@ -2180,7 +2180,7 @@ function refreshData() {
             extraPercent += dailyCompoundBonus * compoundPercent;
             $("#compound-bonus").html(`+${extraPercent}% bonus`);
         } else {
-            $("#reinvest").text("Recruit more Astronauts");
+            $("#reinvest").text("Hire more Miners");
         }
 
         var cutOffDiff = (+lastHatch + +cutoffStep) - now;
