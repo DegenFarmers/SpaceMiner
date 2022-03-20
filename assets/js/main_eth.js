@@ -2539,11 +2539,11 @@ function buyEggs(){
     var spendDoc = document.getElementById('busd-spend')
     var busd = spendDoc.value;
 	
-    var amt = web3.utils.toWei(busd, 'gwei');
-	if(+amt < +minDeposit) {
-		alert(`you cannot deposit less than ${readableBUSD(minDeposit, 2, 1e9)} SPACE`);
-        return
-    }
+    //var amt = web3.utils.toWei(busd, 'gwei');
+	//if(+amt < +minDeposit) {
+		//alert(`you cannot deposit less than ${readableBUSD(minDeposit, 2, 1e9)} SPACE`);
+       // return
+    //}
 	
 	var amt = web3.utils.toWei(busd, 'gwei');
 	if(+amt + +totalDeposits > +maxDeposit) {
