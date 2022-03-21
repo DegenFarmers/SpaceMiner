@@ -2518,7 +2518,7 @@ function refreshData() {
 
     contract.methods.COMPOUND_BONUS().call().then(r => {
         compoundPercent = r / 10;
-        $("#daily-compound").html(`${compoundPercent}% Recruit Bonus`)
+        $("#daily-compound").html(`${compoundPercent}% Hiring Bonus`)
         $("#compound-percent").html(`${compoundPercent}%`)
     }).catch((err) => {
         console.log('COMPOUND_BONUS', err);
@@ -2538,7 +2538,7 @@ function refreshData() {
 
     contract.methods.REFERRAL().call().then(r => {
         var refPercent = Number(r / 10).toFixed(0);
-        $("#ref-bonus").html(`${refPercent}% Game Referral Bonus`)
+        $("#ref-bonus").html(`${refPercent}% Referral Bonus`)
         $("#ref-percent").html(`${refPercent}%`)
     }).catch((err) => {
         console.log('REFERRAL', err);
